@@ -2,3 +2,4 @@ Django==1.10.2
 djangorestframework==3.4.7
 djangorestframework-jwt==1.8.0
 psycopg2
+django-cors-headers==1.2.2
