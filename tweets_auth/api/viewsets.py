@@ -5,7 +5,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST
 
-from tweets_auth.api.serializers import UserSerializer
+from tweets.models import Tweet
+from tweets_auth.api.serializers import UserSerializer, TweetSerializer
 
 
 class UserViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -32,3 +33,11 @@ class UserViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.Gener
         return Response(
             {'available': available}
         )
+
+
+class TweetViewSet(viewsets.ModelViewSet):
+    queryset = Tweet.objects.all()
+    serializer_class = TweetSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

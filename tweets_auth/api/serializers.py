@@ -3,6 +3,8 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from rest_framework.validators import UniqueValidator
 
+from tweets.models import Tweet
+
 
 class UserSerializer(serializers.Serializer):
 
@@ -23,3 +25,12 @@ class UserSerializer(serializers.Serializer):
         if attrs['password'] != attrs['repeat_password']:
             raise ValidationError("Passwords don't match!")
         return attrs
+
+
+class TweetSerializer(serializers.ModelSerializer):
+    author = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Tweet
+
+

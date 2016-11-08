@@ -21,6 +21,7 @@ from .api import viewsets
 
 router = DefaultRouter()
 router.register(r'users', viewsets.UserViewSet, base_name='users')
+router.register(r'tweets', viewsets.TweetViewSet)
 
 urlpatterns = [
     url(r'^api-token-auth/', obtain_jwt_token),
